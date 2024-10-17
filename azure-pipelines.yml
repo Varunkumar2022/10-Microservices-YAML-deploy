@@ -1,0 +1,220 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- test
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '4514d3f4-247f-4222-89cb-e6173b11fd8e'
+  imageRepository: 'latestmicroserviceproject'
+  containerRegistry: 'acr002.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/src/adservice/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build_1
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build_1
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'adservice'
+        dockerfile: '$(Build.SourcesDirectory)/src/adservice/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Build_2
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build_2
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'cartservice'
+        dockerfile: '$(Build.SourcesDirectory)/src/cartservice/src/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Build_3
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build_3
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'checkoutservice'
+        dockerfile: '$(Build.SourcesDirectory)/src/checkoutservice/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Build_4
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build_4
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'currencyservice'
+        dockerfile: '$(Build.SourcesDirectory)/src/currencyservice/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Build_5
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build_5
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'emailservice'
+        dockerfile: '$(Build.SourcesDirectory)/src/emailservice/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Build_6
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build_6
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'frontend'
+        dockerfile: '$(Build.SourcesDirectory)/src/frontend/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Build_7
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build_7
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'loadgenerator'
+        dockerfile: '$(Build.SourcesDirectory)/src/loadgenerator/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Build_8
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build_8
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'paymentservice'
+        dockerfile: '$(Build.SourcesDirectory)/src/paymentservice/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Build_9
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build_9
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'productcatalogservice'
+        dockerfile: '$(Build.SourcesDirectory)/src/productcatalogservice/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Build_10
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build_10
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'recommendationservice'
+        dockerfile: '$(Build.SourcesDirectory)/src/recommendationservice/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Build_11
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build_11
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'shippingservice'
+        dockerfile: '$(Build.SourcesDirectory)/src/shippingservice/Dockerfile'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
